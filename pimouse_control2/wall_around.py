@@ -13,7 +13,6 @@ import copy
 import math
 import time
 from geometry_msgs.msg import Twist
-from std_srvs.srv import Trigger, TriggerResponse
 from pimouse_msgs.msg import LightSensorValues
 from pimouse_msgs.msg import RunData
 

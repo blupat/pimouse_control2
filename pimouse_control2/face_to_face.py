@@ -12,7 +12,6 @@ import rclpy
 import math
 import sys
 from geometry_msgs.msg import Twist
-from std_srvs.srv import Trigger
 
 
 class FaceToFace():

@@ -23,6 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'pimouse_control_node = ' + package_name + '.pimouse_control_node:main',
         ],
     },
 )

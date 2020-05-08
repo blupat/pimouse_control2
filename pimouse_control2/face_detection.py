@@ -11,9 +11,7 @@
 import rclpy
 import cv2
 from sensor_msgs.msg import Image
-from std_srvs.srv import Trigger
 from cv_bridge import CvBridge, CvBridgeError
-from face_to_face import FaceToFace
 
 
 class FaceDetection():

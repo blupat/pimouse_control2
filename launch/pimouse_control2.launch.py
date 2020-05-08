@@ -31,6 +31,11 @@ def generate_launch_description():
             package='web_video_server', node_executable='web_video_server', output='screen',
             parameters=[{'port': 10000}]),
         launch_ros.actions.Node(
+            package='pimouse_ros2', node_executable='lightsensors', output='screen',
+            parameters=[{'lightsensors_period': 0.05}]),
+        launch_ros.actions.Node(
+            package='pimouse_ros2', node_executable='motors', output='screen'),
+        launch_ros.actions.Node(
             package='pimouse_control2', node_executable='pimouse_control_node', output='screen',
             parameters=[control_params_file]),
     ])

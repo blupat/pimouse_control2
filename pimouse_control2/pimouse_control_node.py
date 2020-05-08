@@ -14,9 +14,9 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Trigger
-from wall_around import WallAround
-from face_to_face import FaceToFace
-from face_detection import FaceDetection
+from .wall_around import WallAround
+from .face_to_face import FaceToFace
+from .face_detection import FaceDetection
 from pimouse_msgs.srv import PiMouseCmd
 
 
@@ -42,9 +42,9 @@ class PiMouseControl(Node):
         self._wallAround = WallAround(self)
         self._faceToFace = FaceToFace(self)
         self._faceDetection = FaceDetection(self)
-        while not self._srvClientOn.wait_for_service(timeout=1.0):
+        while not self._srvClientOn.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('waiting...')
-        while not self._srvClientOff.wait_for_service(timeout=1.0):
+        while not self._srvClientOff.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('waiting...')
         self._timer = self.create_timer(0.05, self.Run)
 
