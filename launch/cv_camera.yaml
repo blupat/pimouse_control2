@@ -1,4 +1,4 @@
-cv_camera_node:
+cv_camera:
   ros__parameters:
     rate: 15.0
     image_width: 320
