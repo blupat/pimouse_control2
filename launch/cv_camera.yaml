@@ -1,0 +1,5 @@
+cv_camera_node:
+  ros__parameters:
+    rate: 15.0
+    image_width: 320
+    image_height: 180
