@@ -21,7 +21,7 @@ class FaceDetection():
         '_subImage', '_nodeHandle')
 
     def __init__(self, nodeHandle):
-        self._subImage = nodeHandle.create_subscription(Image, "/cv_camera/image_raw", self.GetImage, 1)
+        self._subImage = nodeHandle.create_subscription(Image, "/image_raw", self.GetImage, 1)
         self._pubFace = nodeHandle.create_publisher(Image, "face", 1)
         self._cvBridge = CvBridge()
         self._imageOrg = None
