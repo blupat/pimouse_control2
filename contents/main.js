@@ -7,7 +7,7 @@ ros.on('close', function(){ console.log('websocket: closed'); });
 var ls = new ROSLIB.Topic({
 	ros : ros,
 	name : '/lightsensors',
-	messageType : 'pimouse_ros/LightSensorValues'
+	messageType : 'pimouse_msgs/msg/LightSensorValues'
 });
 
 ls.subscribe(function(message){
@@ -19,7 +19,7 @@ ls.subscribe(function(message){
 var cmd = new ROSLIB.Service({
 	ros : ros,
 	name : '/pimouse_cmd',
-	messageType : 'pimouse_control/PiMouseCmd'
+	messageType : 'pimouse_msgs/srv/PiMouseCmd'
 });
 
 var cmdOff = new ROSLIB.ServiceRequest({

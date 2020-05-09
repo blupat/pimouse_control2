@@ -1,0 +1,51 @@
+diff --git a/package.xml b/package.xml
+index a4989f5..b17cd0c 100644
+--- a/package.xml
++++ b/package.xml
+@@ -1,5 +1,6 @@
+ <?xml version="1.0"?>
+-<package format="2">
++<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
++<package format="3">
+   <name>web_video_server</name>
+   <version>1.0.0</version>
+   <description>HTTP Streaming of ROS Image Topics in Multiple Formats</description>
+@@ -13,7 +14,7 @@
+   <url type="bugtracker">https://github.com/RobotWebTools/web_video_server/issues</url>
+   <url type="repository">https://github.com/RobotWebTools/web_video_server</url>
+ 
+-  <buildtool_depend>ament_cmake_ros</buildtool_depend>
++  <buildtool_depend>ament_cmake</buildtool_depend>
+ 
+   <build_depend>rclcpp</build_depend>
+   <build_depend>cv_bridge</build_depend>
+@@ -28,4 +29,8 @@
+   <exec_depend>async_web_server_cpp</exec_depend>
+   <exec_depend>ffmpeg</exec_depend>
+   <exec_depend>sensor_msgs</exec_depend>
++
++  <export>
++    <build_type>ament_cmake</build_type>
++  </export>
+ </package>
+diff --git a/src/web_video_server.cpp b/src/web_video_server.cpp
+index a442165..98efed8 100644
+--- a/src/web_video_server.cpp
++++ b/src/web_video_server.cpp
+@@ -53,7 +53,7 @@ WebVideoServer::WebVideoServer(rclcpp::Node::SharedPtr &nh, rclcpp::Node::Shared
+         async_web_server_cpp::HttpReply::stock_reply(async_web_server_cpp::HttpReply::not_found))
+ {
+   rclcpp::Parameter parameter;
+-  if (private_nh->get_parameter("port", parameter)) {
++  if (nh_->get_parameter("port", parameter)) {
+     port_ = parameter.as_int();
+   } else {
+     port_ = 8080;
+@@ -378,6 +378,7 @@ int main(int argc, char **argv)
+ {
+   rclcpp::init(argc, argv);
+   auto nh = std::make_shared<rclcpp::Node>("web_video_server");
++  nh->declare_parameter("port");
+   auto private_nh = std::make_shared<rclcpp::Node>("_web_video_server");
+ 
+   web_video_server::WebVideoServer server(nh, private_nh);

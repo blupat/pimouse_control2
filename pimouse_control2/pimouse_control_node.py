@@ -48,15 +48,15 @@ class PiMouseControl(Node):
             self.get_logger().info('waiting...')
         self._timer = self.create_timer(0.05, self.Run)
 
-    def CommandCallback(self, req, res):
-        if req.on:
+    def CommandCallback(self, request, response):
+        if request.on:
             self._on = True
-            if req.run:
+            if request.run:
                 self._run = True
                 self._face = False
                 self._forward = 0.0
                 self._rotation = 0.0
-            elif req.face:
+            elif request.face:
                 self._run = False
                 self._face = True
                 self._forward = 0.0
@@ -64,8 +64,8 @@ class PiMouseControl(Node):
             else:
                 self._run = False
                 self._face = False
-                self._forward = req.forward
-                self._rotation = req.rotation
+                self._forward = request.forward
+                self._rotation = request.rotation
         else:
             self._on = False
             self._run = False
@@ -73,8 +73,8 @@ class PiMouseControl(Node):
             self._forward = 0.0
             self._rotation = 0.0
             self._srvClientOff.call()
-        res.is_ok = True
-        return res
+        response.is_ok = True
+        return response
 
     def Run(self):
         try:

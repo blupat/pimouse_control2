@@ -13,6 +13,8 @@
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>pimouse_msgs</exec_depend>
   <exec_depend>pimouse_ros2</exec_depend>
+  <exec_depend>cv_camera</exec_depend>
+  <exec_depend>web_video_server</exec_depend>
   <exec_depend>rosbridge_server</exec_depend>
   <exec_depend>rosapi</exec_depend>
 
