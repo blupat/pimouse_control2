@@ -67,7 +67,7 @@ function cmdOnWithMotorValues(){
 	cmd.callService(
 		cmdOn,
 		function(result){
-			if(result.isOk){
+			if(result.is_ok){
 				document.getElementById('motor_on').className = 'btn btn-danger';
 				document.getElementById('motor_run').className = 'btn btn-default';
 				document.getElementById('motor_face').className = 'btn btn-default';
@@ -100,7 +100,7 @@ document.getElementById('motor_run').addEventListener(
 		cmd.callService(
 			cmdRun,
 			function(result){
-				if(result.isOk){
+				if(result.is_ok){
 					document.getElementById('motor_on').className = 'btn btn-default';
 					document.getElementById('motor_run').className = 'btn btn-danger';
 					document.getElementById('motor_face').className = 'btn btn-default';
@@ -124,7 +124,7 @@ document.getElementById('motor_face').addEventListener(
 		cmd.callService(
 			cmdFace,
 			function(result){
-				if(result.isOk){
+				if(result.is_ok){
 					document.getElementById('motor_on').className = 'btn btn-default';
 					document.getElementById('motor_run').className = 'btn btn-default';
 					document.getElementById('motor_face').className = 'btn btn-danger';
@@ -148,7 +148,7 @@ document.getElementById('motor_off').addEventListener(
 		cmd.callService(
 			cmdOff,
 			function(result){
-				if(result.isOk){
+				if(result.is_ok){
 					document.getElementById('motor_on').className = 'btn btn-default';
 					document.getElementById('motor_run').className = 'btn btn-default';
 					document.getElementById('motor_face').className = 'btn btn-default';
