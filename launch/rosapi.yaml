@@ -1,0 +1,5 @@
+rosapi:
+  ros__parameters:
+      topics_glob: "''[*]''"
+      services_glob: "''[*]''"
+      params_glob: "''[*]''"

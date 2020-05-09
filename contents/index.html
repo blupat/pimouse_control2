@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<title>Pimouse Monitor</title>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Pimouse Monitor</a>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container" style="padding-top:60px">
+			<div class="row">
+				<div class="col-md-4" id="lightsensors">
+					<h2>Light Sensors</h2>
+					<table class="table table-striped">
+						<tr><th>DESCRIPTION</th><th>VALUE</th></tr>
+						<tr><td>left_forward</td><td id="left_forward"></td></tr>
+						<tr><td>left_side</td><td id="left_side"></td></tr>
+						<tr><td>right_side</td><td id="right_side"></td></tr>
+						<tr><td>right_forward</td><td id="right_forward"></td></tr>
+						<tr><td>sum_all</td><td id="sum_all"></td></tr>
+						<tr><td>sum_forward</td><td id="sum_forward"></td></tr>
+					</table>
+				</div>
+				<div class="col-md-4">
+					<h2>Camera</h2>
+					<object id="camstream" style="width:320px;height:240px"></object>
+				</div>
+				<div class="col-md-4">
+					<h2>
+						Motors
+					</h2>
+					<h2>
+					<button type="button" class="btn btn-danger" id="motor_on">ON</button>
+					<button type="button" class="btn btn-danger" id="motor_run">RUN</button>
+					<button type="button" class="btn btn-danger" id="motor_face">FACE</button>
+					<button type="button" class="btn btn-primary" id="motor_off">OFF</button>
+					</h2>
+					<div id="touchmotion" class="card-group" style="width:300px;height:300px;cursor:pointer">
+						<div class="card">
+							<ul class="list-group list-group-flush h-100">
+								<li class="list-group-item h-50 bg-light">
+									<div class="container">
+										<div class="row">
+											<div class="col">
+												<span id="vel_fw">0</span>
+											</div>
+											<div class="col">
+												[mm/s]
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<span id="vel_rot">0</span>
+											</div>
+											<div class="col">
+												[deg/s]
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item h-50 bg-light">
+								</li>
+							</ul>
+						</div>
+						<div class="card">
+							<ul class="list-group list-group-flush h-100">
+								<li class="list-group-item h-50 bg-light">
+								</li>
+								<li class="list-group-item h-50 bg-light">
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<blockquote class="blockquote text-right">
+			<footer class="footer mt-auto py-3">
+				<div class="container">
+					<span class="text-muted">In development</span>
+				</div>
+			</footer>
+		</blockquote>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+		<script src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+		<script src="main.js"></script>
+	</body>
+
+</html>

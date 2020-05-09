@@ -12,7 +12,12 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name, glob('launch/*.launch.py')),
-        ('share/' + package_name, glob('launch/*.yaml'))
+        ('share/' + package_name, glob('launch/*.yaml')),
+        ('share/' + package_name + '/contents', ['contents/index.html', 'contents/main.js']),
+        ('share/' + package_name + '/contents/css', glob('contents/css/*.css')),
+        ('share/' + package_name + '/contents/css', glob('contents/css/*.map')),
+        ('share/' + package_name + '/contents/js', glob('contents/js/*.js')),
+        ('share/' + package_name + '/contents/js', glob('contents/js/*.map')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -24,6 +29,7 @@ setup(
     entry_points={
         'console_scripts': [
             'pimouse_control_node = ' + package_name + '.pimouse_control_node:main',
+            'webserver = ' + package_name + '.webserver:main',
         ],
     },
 )
