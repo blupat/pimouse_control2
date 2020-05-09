@@ -27,10 +27,6 @@ def generate_launch_description():
         'websocket_params',
         default=[launch.substitutions.ThisLaunchFileDir(), '/websocket.yaml']
     )
-    rosapi_params_file = launch.substitutions.LaunchConfiguration(
-        'rosapi_params',
-        default=[launch.substitutions.ThisLaunchFileDir(), '/rosapi.yaml']
-    )
 
     return launch.LaunchDescription([
         launch_ros.actions.Node(
@@ -48,8 +44,7 @@ def generate_launch_description():
             package='rosbridge_server', node_executable='rosbridge_websocket', output='screen',
             parameters=[websocket_params_file]),
         launch_ros.actions.Node(
-            package='rosapi', node_executable='rosapi_node', output='screen',
-            parameters=[rosapi_params_file]),
+            package='rosapi', node_executable='rosapi_node', output='screen'),
         launch_ros.actions.Node(
             package='pimouse_control2', node_executable='webserver', output='screen',
             parameters=[{'port': 8000}]),
