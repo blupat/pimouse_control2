@@ -9,6 +9,7 @@
 # =======================================================================
 
 import rclpy
+from rclpy.qos import QoSPresetProfiles
 import cv2
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
@@ -17,18 +18,19 @@ from cv_bridge import CvBridge, CvBridgeError
 class FaceDetection():
 
     __slots__ = (
-        '_pubFace', '_cvBridge', '_imageOrg', '_cascade',
+        '_pubFace', '_cvBridge', '_imageOrg', '_scaleFactor', '_minNeighbors', '_cascade',
         '_subImage', '_nodeHandle')
 
     def __init__(self, nodeHandle):
-        self._subImage = nodeHandle.create_subscription(Image, "/image_raw", self.GetImage, 1)
-        self._pubFace = nodeHandle.create_publisher(Image, "face", 1)
+        self._nodeHandle = nodeHandle
+        self._subImage = self._nodeHandle.create_subscription(
+            Image, "/image_raw", self.GetImage, QoSPresetProfiles.SENSOR_DATA.value)
+        self._pubFace = self._nodeHandle.create_publisher(Image, "face", 4)
         self._cvBridge = CvBridge()
         self._imageOrg = None
 
-        self._nodeHandle = nodeHandle
-        self._nodeHandle.declare_parameter("vision_control.scale_factor", 1.3)
-        self._nodeHandle.declare_parameter("vision_control.min_neighbors", 2)
+        self._scaleFactor = self._nodeHandle.declare_parameter("vision_control.scale_factor", 1.3).value
+        self._minNeighbors = self._nodeHandle.declare_parameter("vision_control.min_neighbors", 2).value
 
         classifier = "/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml"
         self._cascade = cv2.CascadeClassifier(classifier)
@@ -37,7 +39,7 @@ class FaceDetection():
         try:
             self._imageOrg = self._cvBridge.imgmsg_to_cv2(img, "bgr8")
         except CvBridgeError as e:
-            self.get_logger().error(e)
+            self._nodeHandle.get_logger().error(e)
 
     def Monitor(self, rect, org):
         if rect is not None:
@@ -52,11 +54,9 @@ class FaceDetection():
         org = self._imageOrg
 
         if isDetectionEnabled:
-            scaleFactor = self._nodeHandle.get_parameter("vision_control.scale_factor").value
-            minNeighbors = self._nodeHandle.get_parameter("vision_control.min_neighbors").value
             gimg = cv2.cvtColor(org, cv2.COLOR_BGR2GRAY)
             face = self._cascade.detectMultiScale(
-                gimg, scaleFactor, minNeighbors, cv2.CASCADE_FIND_BIGGEST_OBJECT)
+                gimg, self._scaleFactor, self._minNeighbors, cv2.CASCADE_FIND_BIGGEST_OBJECT)
         else:
             face = []
 

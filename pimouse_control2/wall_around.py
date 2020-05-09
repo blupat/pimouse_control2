@@ -9,6 +9,7 @@
 # =======================================================================
 
 import rclpy
+from rclpy.qos import QoSPresetProfiles
 import copy
 import math
 import time
@@ -62,7 +63,7 @@ class WallAround():
     def __init__(self, nodeHandle):
         self._nodeHandle = nodeHandle
         self._cmdVel = self._nodeHandle.create_publisher(Twist, '/cmd_vel', 1)
-        self._pubRunData = self._nodeHandle.create_publisher(RunData, '/run_data', 1)
+        self._pubRunData = self._nodeHandle.create_publisher(RunData, '/run_data', 4)
 
         self._accel = self._nodeHandle.declare_parameter("run_corridor.acceleration", 0.01).value
         self._decel = self._nodeHandle.declare_parameter("run_corridor.deceleration", 0.02).value
@@ -84,7 +85,8 @@ class WallAround():
         self._bufferIndex = 0
         self._leftAverage = 0.0
         self._rightAverage = 0.0
-        self._subLightSensors = self._nodeHandle.create_subscription(LightSensorValues, '/lightsensors', self.Callback, 1)
+        self._subLightSensors = self._nodeHandle.create_subscription(
+            LightSensorValues, '/lightsensors', self.Callback, QoSPresetProfiles.SENSOR_DATA.value)
 
     def Callback(self, messages):
         dv = DistanceValues(messages)
