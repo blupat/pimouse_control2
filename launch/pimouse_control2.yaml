@@ -1,4 +1,4 @@
-cv_camera_node:
+pimouse_control_node:
   ros__parameters:
     run_corridor:
       acceleration: 0.01

@@ -25,7 +25,8 @@ class PiMouseControl(Node):
     __slots__ = (
         '_srvCmd', '_srvClientOn', '_srvClientOff', '_wallAround',
         '_faceToFace', '_faceDetection', '_isOn', '_isRun',
-        '_on', '_run', '_face', '_forward', '_rotation', '_timer')
+        '_on', '_run', '_face', '_forward', '_rotation', '_timer',
+        '_future')
 
     def __init__(self):
         super().__init__('pimouse_control_node')
@@ -39,6 +40,7 @@ class PiMouseControl(Node):
         self._srvCmd = self.create_service(PiMouseCmd, 'pimouse_cmd', self.CommandCallback)
         self._srvClientOn = self.create_client(Trigger, 'motor_on')
         self._srvClientOff = self.create_client(Trigger, 'motor_off')
+        self._future = None
         self._wallAround = WallAround(self)
         self._faceToFace = FaceToFace(self)
         self._faceDetection = FaceDetection(self)
@@ -72,7 +74,6 @@ class PiMouseControl(Node):
             self._face = False
             self._forward = 0.0
             self._rotation = 0.0
-            self._srvClientOff.call()
         response.is_ok = True
         return response
 
@@ -81,7 +82,7 @@ class PiMouseControl(Node):
             xPosRate = self._faceDetection.Control(self._face)
             if self._on:
                 if not self._isOn:
-                    self._srvClientOn.call()
+                    self._future = self._srvClientOn.call_async(Trigger.Request())
                     self._isOn = True
                 if self._run:
                     if not self._isRun:
@@ -98,7 +99,7 @@ class PiMouseControl(Node):
             else:
                 if self._isOn:
                     self._wallAround.SetVelocity(0.0, 0.0)
-                    self._srvClientOff.call()
+                    self._future = self._srvClientOff.call_async(Trigger.Request())
                     self._isOn = False
                     self._isRun = False
         except Exception as e:

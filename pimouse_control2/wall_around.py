@@ -64,19 +64,19 @@ class WallAround():
         self._cmdVel = self._nodeHandle.create_publisher(Twist, '/cmd_vel', 1)
         self._pubRunData = self._nodeHandle.create_publisher(RunData, '/run_data', 1)
 
-        self._nodeHandle.declare_parameter("run_corridor.acceleration", 0.01)
-        self._nodeHandle.declare_parameter("run_corridor.deceleration", 0.02)
-        self._nodeHandle.declare_parameter("run_corridor.max_speed", 0.3)
-        self._nodeHandle.declare_parameter("run_corridor.min_speed", 0.1)
-        self._nodeHandle.declare_parameter("run_corridor.servo_target", 14.0)
-        self._nodeHandle.declare_parameter("run_corridor.servo_kp", 8.0)
-        self._nodeHandle.declare_parameter("run_corridor.servo_kd", 0.16)
-        self._nodeHandle.declare_parameter("run_corridor.servo_off_threshold", 4.0)
-        self._nodeHandle.declare_parameter("run_corridor.wall_gain", 1.0)
-        self._nodeHandle.declare_parameter("run_corridor.wall_threshold", 15.0)
-        self._nodeHandle.declare_parameter("run_corridor.near_wall_threshold", 10.0)
-        self._nodeHandle.declare_parameter("run_corridor.right_threshold", 21.0)
-        self._nodeHandle.declare_parameter("run_corridor.left_threshold", 21.0)
+        self._accel = self._nodeHandle.declare_parameter("run_corridor.acceleration", 0.01).value
+        self._decel = self._nodeHandle.declare_parameter("run_corridor.deceleration", 0.02).value
+        self._maxSpeed = self._nodeHandle.declare_parameter("run_corridor.max_speed", 0.3).value
+        self._minSpeed = self._nodeHandle.declare_parameter("run_corridor.min_speed", 0.1).value
+        self._servoTarget = self._nodeHandle.declare_parameter("run_corridor.servo_target", 14.0).value
+        self._servoKp = self._nodeHandle.declare_parameter("run_corridor.servo_kp", 8.0).value
+        self._servoKd = self._nodeHandle.declare_parameter("run_corridor.servo_kd", 0.16).value
+        self._servoOffThreshold = self._nodeHandle.declare_parameter("run_corridor.servo_off_threshold", 4.0).value
+        self._wallGain = self._nodeHandle.declare_parameter("run_corridor.wall_gain", 1.0).value
+        self._wallThreshold = self._nodeHandle.declare_parameter("run_corridor.wall_threshold", 15.0).value
+        self._nearWallThreshold = self._nodeHandle.declare_parameter("run_corridor.near_wall_threshold", 10.0).value
+        self._rightThreshold = self._nodeHandle.declare_parameter("run_corridor.right_threshold", 21.0).value
+        self._leftThreshold = self._nodeHandle.declare_parameter("run_corridor.left_threshold", 21.0).value
 
         self._distanceValues = DistanceValues(LightSensorValues())
         self._leftSideBuffer = [0.0, 0.0, 0.0]
@@ -121,19 +121,6 @@ class WallAround():
         self._th = 0.0
         self._isServoOn = False
         self._isTurnRight = False
-        self._accel = self._nodeHandle.get_parameter("run_corridor.acceleration", 0.01).value
-        self._decel = self._nodeHandle.get_parameter("run_corridor.deceleration", 0.02).value
-        self._maxSpeed = self._nodeHandle.get_parameter("run_corridor.max_speed", 0.3).value
-        self._minSpeed = self._nodeHandle._nodeHandlendle.get_parameter("run_corridor.min_speed", 0.1).value
-        self._servoTarget = self._nodeHandle.get_parameter("run_corridor.servo_target", 14.0).value
-        self._servoKp = self._nodeHandle.get_parameter("run_corridor.servo_kp", 8.0).value
-        self._servoKd = self._nodeHandle.get_parameter("run_corridor.servo_kd", 0.16).value
-        self._servoOffThreshold = self._nodeHandle.get_parameter("run_corridor.servo_off_threshold", 4.0).value
-        self._wallGain = self._nodeHandle.get_parameter("run_corridor.wall_gain", 1.0).value
-        self._wallThreshold = self._nodeHandle.get_parameter("run_corridor.wall_threshold", 15.0).value
-        self._nearWallThreshold = self._nodeHandle.get_parameter("run_corridor.near_wall_threshold", 10.0).value
-        self._rightThreshold = self._nodeHandle.get_parameter("run_corridor.right_threshold", 21.0).value
-        self._leftThreshold = self._nodeHandle.get_parameter("run_corridor.left_threshold", 21.0).value
 
     def Run(self):
         dv = self._distanceValues
